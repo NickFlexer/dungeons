@@ -6,6 +6,7 @@ local Cell = require "map.cell"
 local TerrainsFactory = require "logic.factories.terrains_factory"
 local MonstersFactory = require "logic.factories.monsters_factory"
 local EnvironmentFactory = require "logic.factories.environment_factory"
+local PotionsFactory = require "logic.factories.potions_factory"
 
 local AddActorEvent = require "events.engine.add_actor_event"
 
@@ -22,6 +23,7 @@ function MapController:initialize(data)
     self.terrains_factory = TerrainsFactory()
     self.monsters_factory = MonstersFactory()
     self.environment_factory = EnvironmentFactory()
+    self.potions_factory = PotionsFactory()
 end
 
 function MapController:read_map(map_str)
@@ -54,6 +56,7 @@ end
 function MapController:_get_cell(tile, x, y)
     local terrain
     local entity
+    local item
 
     if tile == "." then
         terrain = self.terrains_factory:get_floor()
@@ -83,11 +86,18 @@ function MapController:_get_cell(tile, x, y)
         local barrel = self.environment_factory:get_barrel()
         barrel:set_position(x, y)
         entity = barrel
+    elseif tile == "!" then
+        terrain = self.terrains_factory:get_floor()
+
+        local potion = self.potions_factory:get_rnd_potion()
+        potion:set_position(x, y)
+        item = potion
     end
 
     local new_cell = Cell({
         terrain = terrain,
-        entity = entity
+        entity = entity,
+        item = item
     })
 
     return new_cell

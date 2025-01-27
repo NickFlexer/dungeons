@@ -8,6 +8,7 @@ local ChangeGameStateEvent = require "events.common.change_game_state_event"
 local MoveAction = require "turn_engine.actions.move_action"
 local WaitAction = require "turn_engine.actions.wait_action"
 local InteractionAction = require "turn_engine.actions.interaction_action"
+local UseInventory = require "turn_engine.actions.use_inventory"
 
 local UITypes = require "enums.ui_types"
 local InputActions = require "enums.input_actions"
@@ -67,6 +68,8 @@ function GameplayState:handle_events(event)
             hero:get_actor():set_action(WaitAction())
         elseif event:get_action() == InputActions.enter then
             hero:get_actor():set_action(InteractionAction())
+        elseif event:get_action() == InputActions.inventory then
+            hero:get_actor():set_action(UseInventory())
         end
     end
 end

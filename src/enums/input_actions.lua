@@ -5,8 +5,10 @@ local InputActions = {
     right = "RIGHT",
 
     wait = "WAIT",
+    inventory = "INVENTORY",
 
-    enter = "ENTER"
+    enter = "ENTER",
+    escape = "ESCAPE"
 }
 
 return InputActions

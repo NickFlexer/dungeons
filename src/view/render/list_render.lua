@@ -36,19 +36,23 @@ function ListRender:render(canvas, items)
             local y = UISettings.shift * 2
 
             self.ui.layout:reset(x, y)
-            self.ui:Label("", self.ui.layout:row(UISettings.button_width, UISettings.button_height))
+            self.ui:Label("", self.ui.layout:row(UISettings.button_width * 2, UISettings.button_height))
 
             for index, item in ipairs(items) do
-                self.ui:Label(item, {font = UISettings.font, align = "left"}, self.ui.layout:row())
+                if item then
+                    self.ui:Label(item, {font = UISettings.font, align = "left"}, self.ui.layout:row())
+                end
             end
 
             x, y = UISettings.button_width + UISettings.shift * 8, UISettings.shift * 2 + UISettings.button_height
             self.ui.layout:reset(x, y)
-            self.ui:Label(
-                items.description,
-                {font = UISettings.font, align = "left"},
-                self.ui.layout:row(UISettings.button_width * 2.5, UISettings.button_height)
-            )
+            if items.description then
+                self.ui:Label(
+                    items.description,
+                    {font = UISettings.font, align = "left"},
+                    self.ui.layout:row(UISettings.button_width * 2.5, UISettings.button_height)
+                )
+            end
 
             self.ui:draw()
         end

@@ -3,6 +3,7 @@ local GameStates = {
     select_player = "SELECT_PLAYER",
     generate_map = "GENERATE_MAP",
     gameplay = "GAMEPLAY",
+    inventory = "INVENTORY",
     game_over = "GAME_OVER",
     finish_level_state = "FINISH_LEVEL_STATE"
 }

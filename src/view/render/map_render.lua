@@ -6,6 +6,8 @@ local ConverterHelper = require "helpers.converter_helper"
 
 local UISettings = require "settings.ui_setting"
 
+local Tile = require "entity.components.tile"
+
 local Tiles = require "enums.tiles"
 
 
@@ -81,9 +83,17 @@ function MapRender:render(canvas, map_data, logic)
                         end
 
                         if not cell:is_in_shadow() then
+                            if cell:get_item() then
+                                self.tile_render:draw(
+                                    cell:get_item():get(Tile.name):get_main(),
+                                    px,
+                                    py
+                                )
+                            end
+
                             if cell:get_entity() then
                                 self.tile_render:draw(
-                                    cell:get_entity():get_tile(),
+                                    cell:get_entity():get(Tile.name):get_main(),
                                     px,
                                     py
                                 )

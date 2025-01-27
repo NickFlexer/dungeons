@@ -1,11 +1,15 @@
 local class = require "middleclass"
 
+local Entity = require "entity.entity"
+
 local EntityTypes = require "enums.entity_types"
 
 
-local BaseEnvironment = class("BaseEnvironment")
+local BaseEnvironment = class("BaseEnvironment", Entity)
 
 function BaseEnvironment:initialize(data)
+    Entity.initialize(self)
+
     self.type = EntityTypes.environment
 
     self.tile = data.tile

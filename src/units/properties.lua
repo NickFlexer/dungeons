@@ -42,6 +42,18 @@ function Properties:is_alive()
     return self.cur_hp > 0
 end
 
+function Properties:is_wounded()
+    return self.cur_hp < self.max_hp
+end
+
+function Properties:heal(value)
+    self.cur_hp = self.cur_hp + value
+
+    if self.cur_hp > self.max_hp then
+        self.cur_hp = self.max_hp
+    end
+end
+
 function Properties:get_view_distance()
     return self.view_distance
 end

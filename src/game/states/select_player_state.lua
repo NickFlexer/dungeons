@@ -29,7 +29,9 @@ function SelectPlayerState:enter(owner)
     self.player_selection:set_items({
         {
             text = "Воин",
-            description = "Базовый персонаж",
+            description = [[Базовый персонаж
+
+Начинает с тремя пузырьками живительного зелья]],
             action = function ()
                 local warrior = self.heroes_factory:get_warrior()
                 self.logic:set_hero(warrior)

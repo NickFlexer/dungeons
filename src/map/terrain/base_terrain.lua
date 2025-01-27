@@ -1,9 +1,13 @@
 local class = require "middleclass"
 
+local Entity = require "entity.entity"
 
-local BaseTerrain = class("BaseTerrain")
+
+local BaseTerrain = class("BaseTerrain", Entity)
 
 function BaseTerrain:initialize(data)
+    Entity.initialize(self)
+
     self.tile = data.tile
     self.terrain_type = data.terrain_type
     self.walkable = data.walkable

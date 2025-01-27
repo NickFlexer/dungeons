@@ -18,7 +18,7 @@ function HeroWarrior:initialize()
         input_actor = true,
         properties = Properties({
             name = "Воин",
-            hp = 20,
+            hp = 30,
             min_damage = 5,
             max_damage = 10,
             accuracy = 70,

@@ -6,6 +6,7 @@ local UpdateViewEvent = require "events.view.update_menu_view_event"
 local ChangeGameStateEvent = require "events.common.change_game_state_event"
 
 local GeneratorBSP = require "generators.generator_bsp"
+local BrickGenerator = require "generators.bricks.generator"
 local MapView = require "generators.view"
 
 local MapController = require "map.map_controller"
@@ -14,6 +15,8 @@ local UITypes = require "enums.ui_types"
 local GameStates = require "enums.game_states"
 
 local MapSettings = require "settings.map_settings"
+
+local MapData = require "generators.bricks.map_data"
 
 
 local GenerateMapState = class("GenerateMapState")
@@ -24,6 +27,7 @@ function GenerateMapState:initialize(data)
     self.map = data.map
 
     self.bsp_generator = GeneratorBSP()
+    self.brick = BrickGenerator()
     self.load_message = Message()
     self.terminal_view = MapView()
     self.map_controller = MapController(
@@ -40,10 +44,13 @@ function GenerateMapState:enter(owner)
     self.load_message:set_msg("Загрузка")
 
     self.event_manager:post_event(UpdateViewEvent(self.load_message:get_msg(), UITypes.message))
+
+    self.try = 1
 end
 
 function GenerateMapState:execute(owner, dt)
-    local new_map = self.bsp_generator:generate(MapSettings.size_x, MapSettings.size_y)
+    -- local new_map = self.bsp_generator:generate(MapSettings.size_x, MapSettings.size_y)
+    local new_map = self.brick:generate(MapData)
 
     if new_map then
         local map_str = self.terminal_view:get_str(new_map)
@@ -52,6 +59,9 @@ function GenerateMapState:execute(owner, dt)
         self.map:set(map)
 
         self.event_manager:post_event(ChangeGameStateEvent(GameStates.gameplay))
+    else
+        print("TRY " .. tostring(self.try))
+        self.try = self.try + 1
     end
 end
 

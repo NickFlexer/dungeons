@@ -49,6 +49,7 @@ function ViewController:handle_events(event)
             self.menu_render:render(self.canvas, event:get_items())
             self.map_render:clear(self.map_canvas)
         elseif ui_type == UITypes.list then
+            self.map_render:clear(self.map_canvas)
             self.list_render:render(self.canvas, event:get_items())
         elseif ui_type == UITypes.message then
             self.message_render:render(self.canvas, event:get_items())

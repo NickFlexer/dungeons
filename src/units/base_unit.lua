@@ -1,13 +1,15 @@
 local class = require "middleclass"
 
+local Entity = require "entity.entity"
 local Actor = require "turn_engine.actor"
 
 local EntityTypes = require "enums.entity_types"
 
 
-local BaseUnit = class("BaseUnit")
+local BaseUnit = class("BaseUnit", Entity)
 
 function BaseUnit:initialize(data)
+    Entity.initialize(self)
     self.type = EntityTypes.unit
 
     self.team = data.team

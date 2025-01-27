@@ -24,9 +24,11 @@ local function new(size_x, size_y, def_value)
 
     local g = {}
 
-    for y = 1, size_y   do
-        for x = 1, size_x do
-            g[(x - 1) * size_x + y] = def_value
+    for x = 1, size_x do
+        g[x] = {}
+
+        for y = 1, size_y do
+            table.insert(g[x], def_value)
         end
     end
 
@@ -114,7 +116,7 @@ end
 --[[ Gets the data in a given x,y cell. ]]
 function Grid:get_cell(x, y)
     if self:is_valid(x, y) then
-        return self._grid[(x - 1) * self.size_x + y]
+        return self._grid[x][y]
     else
         error("Grid.get_cell: try to get cell by invalid index [ " .. tostring(x) .. " : " .. tostring(y) .. "]")
     end
@@ -148,7 +150,7 @@ end
 --[[ Sets a given x,y cell to the data object. ]]
 function Grid:set_cell(x, y, obj)
     if self:is_valid(x, y) then
-        self._grid[(x - 1) * self.size_x + y] = obj
+        self._grid[x][y] = obj
     else
         error("Grid.set_cell: try to set cell by invalid index [ " .. tostring(x) .. " : " .. tostring(y) .. "]")
     end
@@ -298,9 +300,11 @@ function Grid:resize(newx, newy)
     -- Destroy/reset the internal grid.
     self._grid = {}
 
-    for y = 1, self.size_y   do
-        for x = 1, self.size_x do
-            self:set_cell(x, y, self.default_value)
+    for x = 1, self.size_x do
+        self._grid[x] = {}
+
+        for y = 1, self.size_x do
+            table.insert(self._grid[x], self.default_value)
         end
     end
 

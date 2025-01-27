@@ -47,6 +47,8 @@ local Tiles = {
 
     shadow = "SHADOW",
 
+    heal_potion_small = "YEAL_POTION_SMALL",
+
     no_pass = "NO_PASS",
     fight = "FIGHT"
 }

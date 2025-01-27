@@ -17,6 +17,7 @@ local Terrains = require "enums.terrains"
 local UITypes = require "enums.ui_types"
 local EntityTypes = require "enums.entity_types"
 local Tiles = require "enums.tiles"
+local Teams = require "enums.teams"
 
 
 local MoveAction = class("MoveAction", BaseAction)
@@ -71,7 +72,7 @@ function MoveAction:perform(data, unit)
 
         local cell_message = map_data:get_cell(target_x, target_y):get_message()
 
-        if cell_message then
+        if cell_message and unit:get_team() == Teams.hero then
             data.event_manager:post_event(LogMessageEvent(cell_message))
         end
 

@@ -61,7 +61,9 @@ function TileRender:initialize()
             {Tiles.shadow, 3, 1},
 
             {Tiles.no_pass, 16, 1},
-            {Tiles.fight, 15, 1}
+            {Tiles.fight, 15, 1},
+
+            {Tiles.heal_potion_small, 1, 7}
         }
     )
 end

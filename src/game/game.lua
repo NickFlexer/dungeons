@@ -28,6 +28,7 @@ local GenerateMapState = require "game.states.generate_map_state"
 local GameplayState = require "game.states.gameplay_state"
 local GameOverState = require "game.states.game_over_state"
 local FinishLevelState = require "game.states.finish_level_state"
+local InventoryState = require "game.states.inventory_state"
 
 local GameStates = require "enums.game_states"
 
@@ -82,7 +83,8 @@ function Game:initialize()
         [GameStates.generate_map] = GenerateMapState(state_data),
         [GameStates.gameplay] = GameplayState(state_data),
         [GameStates.game_over] = GameOverState(state_data),
-        [GameStates.finish_level_state] = FinishLevelState(state_data)
+        [GameStates.finish_level_state] = FinishLevelState(state_data),
+        [GameStates.inventory] = InventoryState(state_data)
     }
 end
 
