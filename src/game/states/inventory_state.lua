@@ -61,6 +61,13 @@ function InventoryState:handle_events(event)
             self.inventory:remove_items()
             self:_set_list()
             self.event_manager:post_event(UpdateMenuViewEvent(self.inventory:get_state(), UITypes.list))
+        elseif event:get_action() == InputActions.action then
+            local item = self.inventory:get_selected_item()
+            self:_drop_item(item)
+
+            self.inventory:remove_items()
+            self:_set_list()
+            self.event_manager:post_event(UpdateMenuViewEvent(self.inventory:get_state(), UITypes.list))
         end
     end
 end
@@ -84,11 +91,20 @@ function InventoryState:_set_list()
                 if result then
                     hero:get(Inventory.name):remove_item(item)
                 end
-            end
+            end,
+            link = item
         })
     end
 
     self.inventory:set_items(view_items)
+end
+
+function InventoryState:_drop_item(item_to_drop)
+    local hero = self.logic:get_hero()
+    local pos_x, pos_y = hero:get_position()
+    local item = hero:get(Inventory.name):remove_item(item_to_drop)
+
+    self.map:plase_item(pos_x, pos_y, item)
 end
 
 return InventoryState

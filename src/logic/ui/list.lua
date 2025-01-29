@@ -25,7 +25,8 @@ function List:set_items(items)
                 text = item.text,
                 selected = selected,
                 action = item.action,
-                description = item.description
+                description = item.description,
+                link = item.link
             }
         )
     end
@@ -82,6 +83,14 @@ function List:get_state()
     end
 
     return result
+end
+
+function List:get_selected_item()
+    for _, item in ipairs(self.items) do
+        if item.selected then
+            return item.link
+        end
+    end
 end
 
 return List

@@ -33,6 +33,10 @@ function PotionsFactory:get_heal_potion()
         on_map = {
             Colors.white, "Тут лежит ",
             Colors.red, "пузырек живительного зелья"
+        },
+        on_pickup = {
+            Colors.white, " подобрал ",
+            Colors.red, "пузырек живительного зелья"
         }
     }))
     heal_potion:add(Use({

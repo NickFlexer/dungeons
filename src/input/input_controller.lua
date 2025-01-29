@@ -38,6 +38,7 @@ function InputController:_bind()
 
     table.insert(self.keys, {key = "return", action = InputActions.enter})
     table.insert(self.keys, {key = "escape", action = InputActions.escape})
+    table.insert(self.keys, {key = "q", action = InputActions.action})
 
     for _, value in ipairs(self.keys) do
         self.input:bind(value.key, value.action)

@@ -6,6 +6,7 @@ local InputActions = {
 
     wait = "WAIT",
     inventory = "INVENTORY",
+    action = "ACTION",
 
     enter = "ENTER",
     escape = "ESCAPE"

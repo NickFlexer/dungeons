@@ -24,4 +24,12 @@ function Inventory:remove_item(item)
     return table.remove(self.items, index)
 end
 
+function Inventory:can_add()
+    return #self.items < self.max_value
+end
+
+function Inventory:add_item(item)
+    table.insert(self.items, item)
+end
+
 return Inventory

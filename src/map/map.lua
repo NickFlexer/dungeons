@@ -6,6 +6,7 @@ local AddEffectEvent = require "events.map.add_effect_event"
 local UpdateViewEvent = require "events.view.update_menu_view_event"
 
 local UITypes = require "enums.ui_types"
+local Terrains = require "enums.terrains"
 
 
 local Map = class("Map")
@@ -44,6 +45,50 @@ end
 
 function Map:get()
     return self.cur_map
+end
+
+function Map:plase_item(x, y, item)
+    local shift = {
+        {-1, 0},
+        {1, 0},
+        {0, -1},
+        {0, 1}
+    }
+    local visited = {}
+    local start_cell = self.cur_map:get_cell(x, y)
+
+    if start_cell:get_terrain():get_type() == Terrains.floor and not start_cell:get_item() then
+        start_cell:set_item(item)
+
+        return true
+    end
+
+    visited[1] = {}
+    table.insert(visited[1], {x = x, y = y})
+    local index = 1
+
+    while true do
+        for _, value in ipairs(visited[index]) do
+            for _, val in ipairs(shift) do
+                local dx, dy = value.x + val[1], value.y + val[2]
+                local cur_cell = self.cur_map:get_cell(dx, dy)
+
+                if cur_cell:get_terrain():get_type() == Terrains.floor and not cur_cell:get_item() then
+                    cur_cell:set_item(item)
+
+                    return true
+                else
+                    if not visited[index + 1] then
+                        visited[index + 1] = {}
+                    end
+
+                    table.insert(visited[index + 1], {x = dx, y = dy})
+                end
+            end
+        end
+
+        index = index + 1
+    end
 end
 
 function Map:handle_events(event)

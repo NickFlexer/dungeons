@@ -2,6 +2,8 @@ local class = require "middleclass"
 
 local BaseAction = require "turn_engine.actions.base_action"
 
+local PickupAction = require "turn_engine.actions.pickup_action"
+
 local ActionResult = require "turn_engine.action_result"
 
 local LogMessageEvent = require "events.common.log_message_event"
@@ -21,6 +23,13 @@ function InteractionAction:perform(data, unit)
     local map_data = data.map:get()
     local cur_x, cur_y = unit:get_position()
     local cell = map_data:get_cell(cur_x, cur_y)
+
+    if cell:get_item() then
+        return ActionResult{
+            success = true,
+            alternative = PickupAction()
+        }
+    end
 
     local action = cell:get_action()
 
